@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:MenuPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prestamo.Pages.PrincipalPage"
+             xmlns:icons="clr-namespace:Prestamo.Fonts"
+             xmlns:views="clr-namespace:Prestamo.Components"
+             xmlns:vm="clr-namespace:Prestamo.VM"
+             xmlns:pages="clr-namespace:Prestamo.Pages"
+             xmlns:convertes="clr-namespace:Prestamo.Converters"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+            
+             >
+    <!--x:DataType="vm:ListadoIncidenciasVM"-->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convertes:CurrencyConverter x:Key="currencyConverter" />
+            <convertes:IncidenciaEstatusConverter x:Key="incidenciasEstatusConverter" />
+            <convertes:RandomBackgroundColorConverter x:Key="randomBackgroundColorConverter" />
+            <convertes:EstatusColorConverter x:Key="estatusColorConverter" />
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <xct:SideMenuView x:Name="menuView">
+            <ScrollView>
+                <Grid Padding="20, 50, 20, 20"
+                      RowDefinitions="AUTO, *"
+                      BackgroundColor="White">
+                    <!--BackgroundColor="#f7fafa"-->
+                    <StackLayout>
+
+                        <Grid>
+                            <Image Source="sig"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   HeightRequest="60" />
+
+                            <ImageButton VerticalOptions="Center"
+                                         HorizontalOptions="End"
+                                         HeightRequest="20"
+                                         
+                                         x:Name="menuBtn"
+                                         Source="menu" />
+                            <!--Clicked="menuBtn_Clicked"-->
+                        </Grid>
+
+                        <Label Margin="0, 20"
+                               Text="Préstamos"
+                               HorizontalTextAlignment="Center"
+                               FontSize="Large" 
+                               TextColor="#013e75"/>
+
+                        <Grid Margin="0, 10, 0, 0">
+
+                            <Frame Style="{StaticResource entryFrame}">
+
+                                <!--SelectedIndex="{Binding SelectedTipoIndex}"
+                                        SelectedIndexChanged="Picker_SelectedIndexChanged"
+                                ItemsSource="{Binding Tipos}"-->
+                                <Picker 
+                                        FontSize="Small"
+                                    FontAttributes="Bold"
+                                    TitleColor="Gray"
+                                        x:Name="tipoPicker"
+                                        Title="Mostrar:">
+                                    <Picker.Effects>
+                                        <xct:RemoveBorderEffect />
+                                    </Picker.Effects>
+                                    <!--<Picker.Items>
+                                <x:String>Pendientes</x:String>
+                                <x:String>Aceptados</x:String>
+                                <x:String>Rechazados</x:String>
+                                <x:String>Falta información</x:String>
+                            </Picker.Items>-->
+                                </Picker>
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+
+                    <RefreshView Grid.Row="1"
+                                 >
+                        <!--Command="{Binding RefreshCommand}"
+                                 IsRefreshing="{Binding IsRefreshing}"-->
+
+                        <CollectionView x:Name="collectionView">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame BackgroundColor="#ffffff" BorderColor="#dce0e0" CornerRadius="0" Margin="10" Padding="10" HasShadow="True" xct:ShadowEffect.Color="Black" xct:ShadowEffect.OffsetX="0" xct:ShadowEffect.OffsetY="4" xct:ShadowEffect.Opacity="10" xct:ShadowEffect.Radius="17">
+                                        <!--dce0e0-->
+                                        <Grid>
+                                            <!-- Cuatro filas -->
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                                <!-- Separación -->
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <!-- Título de usuario y BoxView -->
+                                            <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="10">
+                                                <Frame  WidthRequest="-9" HeightRequest="-9" CornerRadius="50" 
+                                                          BackgroundColor="{Binding ., Converter={StaticResource randomBackgroundColorConverter}}" 
+                                                         HasShadow="True"/>
+                                                
+                                                <Label Text="Nombre de Usuario" FontSize="Subtitle" TextColor="Gray" VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <!-- Línea de separación -->
+                                            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="#dce0e0" HorizontalOptions="FillAndExpand" />
+
+                                            <!-- Tres columnas -->
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Título 1: Pago -->
+                                                <Label Grid.Column="0" Text="Pago" FontSize="Subtitle" TextColor="Gray" />
+
+                                                <!-- Título 2: Periodo -->
+                                                <Label Grid.Column="2" Text="Periodo" FontSize="Subtitle" TextColor="Gray" />
+
+                                                <!-- Título 3: Fecha -->
+                                                <Label Grid.Column="4" Text="Fecha" FontSize="Subtitle" TextColor="Gray" />
+
+                                                <!-- Valor 1: Binding Pago (en la segunda fila) -->
+                                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Pago}" FontSize="Caption" TextColor="#004f94" FontAttributes="Bold" />
+
+                                                <!-- Valor 2: Binding Periodo (en la segunda fila) -->
+                                                <Label Grid.Column="2" Grid.Row="1" Text="{Binding Periodo}" FontSize="Caption" TextColor="#004f94" FontAttributes="Bold" />
+
+                                                <!-- Valor 3: Binding Fecha (en la segunda fila) -->
+                                                <Label Grid.Column="4" Grid.Row="1" Text="{Binding Fecha}" FontSize="Caption" TextColor="#004f94" FontAttributes="Bold" />
+
+                                                <BoxView Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2" HeightRequest="10" CornerRadius="10" WidthRequest="10">
+                                                    <BoxView.BackgroundColor>
+                                                        <Binding Path="Estatus" Converter="{StaticResource estatusColorConverter}" />
+                                                    </BoxView.BackgroundColor>
+                                                </BoxView>
+                                            </Grid>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+
+
+                        <!--<CollectionView >
+                            --><!--ItemsSource="{Binding Incidencias}"--><!--
+                            
+                            <CollectionView.Footer>
+                                <BoxView HeightRequest="100" />
+                            </CollectionView.Footer>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate >
+                                    --><!--x:DataType="server:ListadoIncidenciasObjList"--><!--
+                                    
+                                    <ContentView Padding="0, 10">
+                                        <ContentView.GestureRecognizers>
+                                            <TapGestureRecognizer  />
+                                            --><!--Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListadoIncidenciasVM}}, Path=SelectedCommand}"
+                                                                  CommandParameter="{Binding .}"--><!--
+                                            
+                                            
+                                        </ContentView.GestureRecognizers>
+                                        <Grid>
+                                            <StackLayout InputTransparent="True"
+                                                         CascadeInputTransparent="True">
+
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Fecha: "
+                                                                  FontFamily="MainBold" />
+                                                            <Span Text="Fecha"
+                                                                  FontFamily="Main" />
+                                                            --><!--Text="{Binding Fecha}"--><!--
+                                                            
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Usuario: "
+                                                                  FontFamily="MainBold" />
+                                                            <Span Text="Usuario"
+                                                                  FontFamily="Main" />
+                                                            --><!--Text="{Binding Usuario}"--><!--
+                                                            
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Incidencia detalle: "
+                                                                  FontFamily="MainBold" />
+                                                            <Span Text="IncidenciaDetalle"
+                                                                  FontFamily="Main" />
+                                                            --><!--Text="{Binding IncidenciaDetalle}"--><!--
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Estatus: "
+                                                                  FontFamily="MainBold" />
+                                                            <Span Text="estatus"
+                                                                  FontFamily="Main" />
+                                                            --><!--Text="{Binding Estatus, Converter={StaticResource incidenciasEstatusConverter}}"--><!--
+                                                            
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <Label>
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Solicitud: "
+                                                                  FontFamily="MainBold" />
+                                                            <Span Text="solicitud"
+                                                                  FontFamily="Main" />
+                                                            --><!--Text="{Binding Solicitud}"--><!--
+                                                            
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                
+
+
+                                                <BoxView HeightRequest="1"
+                                                         VerticalOptions="End"
+                                                         BackgroundColor="White" />
+
+                                            </StackLayout>
+                                            
+                                        </Grid>
+                                    </ContentView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>-->
+                    </RefreshView>
+
+                    
+                </Grid>
+            </ScrollView>
+
+            <views:Menu />
+        </xct:SideMenuView>
+
+    </ContentPage.Content>
+</pages:MenuPage>

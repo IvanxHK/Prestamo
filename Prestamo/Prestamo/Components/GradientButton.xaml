@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:views="clr-namespace:Prestamo.Components"
+             x:Name="This"
+             x:DataType="views:GradientButton"
+             x:Class="Prestamo.Components.GradientButton">
+
+    <ContentView.Content>
+        <StackLayout Orientation="Horizontal"
+                     Padding="20, 8, 5, 8"
+                     x:Name="stack"
+                     xct:CornerRadiusEffect.CornerRadius="200"
+                     xct:ShadowEffect.Opacity="0"
+                     xct:ShadowEffect.Color="Transparent"
+                     HorizontalOptions="Center">
+            <StackLayout.Background>
+                <LinearGradientBrush EndPoint="1,0"
+                                     StartPoint="0, 0">
+                    <GradientStop Color="Black"
+                                  Offset="0.5" />
+                    <GradientStop Color="#0A000000"
+                                  Offset="0.99" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
+            <Label x:Name="textLabel"
+                   VerticalOptions="Center"
+                   TextColor="White" />
+            <Frame Padding="5"
+                   CornerRadius="100"
+                   VerticalOptions="Center"
+                   HasShadow="False"
+                   xct:ShadowEffect.Opacity="0"
+                   xct:ShadowEffect.Color="Transparent"
+                   BackgroundColor="White">
+                <Image VerticalOptions="Center"
+                       HeightRequest="25"
+                       x:Name="image"
+                       WidthRequest="25"
+                       HorizontalOptions="Center">
+                </Image>
+            </Frame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

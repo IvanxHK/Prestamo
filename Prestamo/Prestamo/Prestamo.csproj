@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\Champagne &amp; Limousines Bold Italic.ttf" />
+    <None Remove="Fonts\Champagne &amp; Limousines Bold.ttf" />
+    <None Remove="Fonts\Champagne &amp; Limousines Italic.ttf" />
+    <None Remove="Fonts\Champagne &amp; Limousines.ttf" />
+    <None Remove="Fonts\FontAwesome6Brands.otf" />
+    <None Remove="Fonts\FontAwesome6Regular.otf" />
+    <None Remove="Fonts\FontAwesome6Solid.otf" />
+    <None Remove="Fonts\MaterialIconsOutlined-Regular.otf" />
+    <None Remove="Fonts\MaterialIconsRound-Regular.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Champagne &amp; Limousines Bold Italic.ttf" />
+    <EmbeddedResource Include="Fonts\Champagne &amp; Limousines Bold.ttf" />
+    <EmbeddedResource Include="Fonts\Champagne &amp; Limousines Italic.ttf" />
+    <EmbeddedResource Include="Fonts\Champagne &amp; Limousines.ttf" />
+    <EmbeddedResource Include="Fonts\FontAwesome6Brands.otf" />
+    <EmbeddedResource Include="Fonts\FontAwesome6Regular.otf" />
+    <EmbeddedResource Include="Fonts\FontAwesome6Solid.otf" />
+    <EmbeddedResource Include="Fonts\MaterialIconsOutlined-Regular.otf" />
+    <EmbeddedResource Include="Fonts\MaterialIconsRound-Regular.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.564" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.6" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Popups\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\LoginPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PrincipalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

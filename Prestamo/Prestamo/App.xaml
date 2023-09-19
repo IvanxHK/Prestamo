@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:icons="clr-namespace:Prestamo.Fonts"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:converters="clr-namespace:Prestamo.Converters"
+             x:Class="Prestamo.App">
+    <Application.Resources>
+        <Color x:Key="primary">#000</Color>
+        <Color x:Key="colorOnPrimary">white</Color>
+        <Color x:Key="secondary">#64d760</Color>
+        <Color x:Key="background">#d1d1d1</Color>
+        <Color x:Key="backgroundDark">#807f7f</Color>
+        <Color x:Key="border">#e3e3e3</Color>
+        <Color x:Key="colorOnSecondary">#212427</Color>
+        <Color x:Key="textColor">#212427</Color>
+        <Color x:Key="textSecondary">#9d9d9d</Color>
+        <Color x:Key="x1">#004f94</Color>
+        <xct:IsNotNullOrEmptyConverter x:Key="NotEmptyConverter" />
+        <xct:IsNullOrEmptyConverter x:Key="IsEmptyConverter" />
+        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <xct:IntToBoolConverter x:Key="IntToBoolConverter" />
+        <xct:NotEqualConverter x:Key="NotEqualConverter" />
+        <converters:RandomBackgroundColorConverter x:Key="RandomBackgroundColorConverter" />
+        <converters:EstatusColorConverter x:Key="EstatusColorConverter" />
+        <Style TargetType="StackLayout"
+               x:Key="entryStack">
+            <Setter Property="Spacing"
+                    Value="0" />
+            <Setter Property="HorizontalOptions"
+                    Value="FillAndExpand" />
+        </Style>
+        <Style TargetType="BoxView"
+               x:Key="entryLine">
+            <Setter Property="HeightRequest"
+                    Value="2" />
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource primary}" />
+            <Setter Property="HorizontalOptions"
+                    Value="FillAndExpand" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="TextTransform"
+                    Value="None" />
+            <Setter Property="FontFamily"
+                    Value="Main" />
+        </Style>
+        <Style TargetType="Button"
+               x:Key="primaryBtn">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource x1}" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource colorOnPrimary}" />
+            <Setter Property="CornerRadius"
+                    Value="25" />
+        </Style>
+        <Style TargetType="Button"
+               x:Key="disabledBtn">
+            <Setter Property="BackgroundColor"
+                    Value="LightGray" />
+            <Setter Property="TextColor"
+                    Value="Gray" />
+            <Setter Property="CornerRadius"
+                    Value="25" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="TextColor"
+                    Value="{StaticResource textColor}" />
+            <Setter Property="FontFamily"
+                    Value="MainBold" />
+        </Style>
+        <Style TargetType="Entry"
+               ApplyToDerivedTypes="True">
+            <Setter Property="FontFamily"
+                    Value="Main" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource textColor}" />
+        </Style>
+        <Style TargetType="Editor"
+               ApplyToDerivedTypes="True">
+            <Setter Property="FontFamily"
+                    Value="Main" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource textColor}" />
+        </Style>
+        <Style TargetType="Picker"
+               ApplyToDerivedTypes="True">
+            <Setter Property="FontFamily"
+                    Value="Main" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource textColor}" />
+        </Style>
+        <Style TargetType="ImageButton">
+            <Setter Property="BackgroundColor"
+                    Value="Transparent" />
+        </Style>
+        <Style TargetType="ContentPage"
+               ApplyToDerivedTypes="True">
+            <Setter Property="NavigationPage.HasNavigationBar"
+                    Value="False" />
+            <Setter Property="ios:Page.UseSafeArea"
+                    Value="True" />
+            <!--<Setter Property="BackgroundColor"
+                    Value="{StaticResource background}" />-->
+        </Style>
+        <Style TargetType="View"
+               x:Key="ShadowStyle">
+            <Setter Property="xct:ShadowEffect.Color"
+                    Value="Black" />
+            <Setter Property="xct:ShadowEffect.OffsetX"
+                    Value="0" />
+            <Setter Property="xct:ShadowEffect.OffsetY"
+                    Value="4" />
+            <Setter Property="xct:ShadowEffect.Radius"
+                    Value="7" />
+            <Setter Property="xct:ShadowEffect.Opacity"
+                    Value="25" />
+        </Style>
+        <Style TargetType="Frame"
+               x:Key="entryFrame">
+            <Setter Property="BackgroundColor"
+                    Value="Transparent" />
+            <Setter Property="BorderColor"
+                    Value="#dce0e0" />
+            <Setter Property="CornerRadius"
+                    Value="30" />
+            <Setter Property="Padding"
+                    Value="20, 5" />
+        </Style>
+        <Style x:Key="IconStyle"
+               TargetType="Frame">
+            <Setter Property="WidthRequest"
+                    Value="65" />
+            <Setter Property="HeightRequest"
+                    Value="65" />
+            <Setter Property="BackgroundColor"
+                    Value="#E2E2E2" />
+            <Setter Property="CornerRadius"
+                    Value="50" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="Padding"
+                    Value="5" />
+            <Setter Property="IsClippedToBounds"
+                    Value="True" />
+        </Style>
+        <Style x:Key="QuestionTitleStyle"
+               TargetType="Label">
+            <Setter Property="FontAttributes"
+                    Value="Bold" />
+            <Setter Property="FontSize"
+                    Value="18" />
+        </Style>
+        <ControlTemplate x:Key="UploadButtonTemplate">
+            <Frame BackgroundColor="White"
+                   WidthRequest="20"
+                   Padding="15"
+                   Margin="0, 0, 10, 0"
+                   VerticalOptions="Start"
+                   HeightRequest="20"
+                   CornerRadius="50">
+                <Image WidthRequest="30"
+                             HeightRequest="30"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Aspect="AspectFit">
+                    <Image.Source>
+                        <FontImageSource FontFamily="IconsOutline"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.CloudUpload}"
+                                         Color="{StaticResource textColor}" />
+                    </Image.Source>
+                </Image>
+            </Frame>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="CameraButtonTemplate">
+            <Frame BackgroundColor="White"
+                   WidthRequest="20"
+                   Padding="15"
+                   Margin="0, 0, 10, 0"
+                   VerticalOptions="Start"
+                   HeightRequest="20"
+                   CornerRadius="50">
+                <Image WidthRequest="30"
+                             HeightRequest="30"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Aspect="AspectFit">
+                    <Image.Source>
+                        <FontImageSource FontFamily="Icons"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.PhotoCamera}"
+                                         Color="{StaticResource textColor}" />
+                    </Image.Source>
+                </Image>
+            </Frame>
+        </ControlTemplate>
+    </Application.Resources>
+</Application>

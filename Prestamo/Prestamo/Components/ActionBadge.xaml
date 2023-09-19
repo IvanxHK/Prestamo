@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:icons="clr-namespace:Prestamo.Fonts"
+             x:Name="This"
+             x:Class="Prestamo.Components.ActionBadge">
+    <ContentView.Content>
+        <Grid HorizontalOptions="Center"
+              BindingContext="{x:Reference This}"
+              VerticalOptions="Center">
+            <BoxView BackgroundColor="#949494"
+                     HeightRequest="100"
+                     WidthRequest="100"
+                     CornerRadius="100"
+                     TranslationY="8" />
+            <Frame BackgroundColor="Black"
+                   HeightRequest="100"
+                   WidthRequest="100"
+                   CornerRadius="100"
+                   VerticalOptions="Start"
+                   Padding="0">
+                <Grid>
+                    <Label Text="{Binding Text}"
+                           VerticalOptions="Center"
+                           Margin="10, 0, 0, 0"
+                           FontSize="Micro"
+                           TextColor="White" />
+
+                    <Frame Padding="5"
+                           VerticalOptions="End"
+                           HorizontalOptions="End"
+                           BackgroundColor="White"
+                           CornerRadius="20"
+                           Margin="15">
+                        <Image HeightRequest="10"
+                               VerticalOptions="Center"
+                               TranslationY="-2"
+                               HorizontalOptions="Center"
+                               WidthRequest="10">
+                            <Image.Source>
+                                <FontImageSource FontFamily="FASolid"
+                                                 Color="Black"
+                                                 Glyph="{x:Static icons:FontAwesomeIcons.SortDown}" />
+                            </Image.Source>
+                        </Image>
+
+                    </Frame>
+
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

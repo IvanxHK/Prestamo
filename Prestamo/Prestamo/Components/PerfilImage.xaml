@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Name="This"
+             x:Class="Prestamo.Components.PerfilImage">
+    <ContentView.Content>
+        <Frame CornerRadius="10000"
+               BindingContext="{x:Reference This}"
+               Padding="{Binding BorderThickness}"
+               BackgroundColor="{StaticResource border}">
+            <Frame VerticalOptions="FillAndExpand"
+                   CornerRadius="10000"
+                   Padding="{Binding BorderThickness}"
+                   HorizontalOptions="FillAndExpand">
+                <Image HeightRequest="70"
+                       WidthRequest="70"
+                       Aspect="Fill"
+                       xct:CornerRadiusEffect.CornerRadius="10000"
+                       Source="{Binding Source}" />
+            </Frame>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

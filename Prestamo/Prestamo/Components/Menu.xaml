@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+      xmlns:icons="clr-namespace:Prestamo.Fonts"
+      xct:SideMenuView.MenuAppearanceType="SlideIn"
+      xct:SideMenuView.ParallaxValue="0"
+      xct:SideMenuView.Position="LeftMenu"
+      xct:SideMenuView.MenuWidthPercentage=".8"
+      xct:SideMenuView.MainViewOpacityFactor="0.1"
+      BackgroundColor="White"
+      RowDefinitions="0.35*, 0.65*"
+      xct:ShadowEffect.Color="Black"
+      xct:ShadowEffect.OffsetX="200"
+      x:Name="this"
+      xct:ShadowEffect.Radius="500"
+      xct:ShadowEffect.Opacity="999"
+      x:Class="Prestamo.Components.Menu">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Grid"
+                   x:Key="menuGrid">
+                <Setter Property="ColumnDefinitions"
+                        Value="20, *" />
+            </Style>
+            <Style TargetType="Image"
+                   x:Key="menuImage">
+                <Setter Property="HeightRequest"
+                        Value="25" />
+                <Setter Property="HorizontalOptions"
+                        Value="Start" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="Label"
+                   x:Key="menuLabel">
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="Grid.Column"
+                        Value="1" />
+            </Style>
+
+        </ResourceDictionary>
+    </Grid.Resources>
+    <Grid Padding="16, 40, 16, 16"
+          BackgroundColor="{StaticResource primary}"
+          RowSpacing="0"
+          BindingContext="{x:Reference this}"
+          RowDefinitions="35, 45, *">
+        <StackLayout BackgroundColor="White"
+                     Grid.Row="1"
+                     Padding="0, 60, 0, 0"
+                     Spacing="0"
+                     Grid.RowSpan="2">
+            <!--Nombre-->
+            <Label Text="{Binding Usuario.Correo}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+            <!--Correo-->
+            <!--<Label Text="{Binding Usuario.Correo}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+            <Image Source="nombreAzulClaro"
+                   Margin="30, 25, 30, 0" />-->
+        </StackLayout>
+        <Frame HeightRequest="80"
+               WidthRequest="80"
+               IsClippedToBounds="True"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Style="{StaticResource ShadowStyle}"
+               Padding="0"
+               CornerRadius="40"
+               Grid.Row="0"
+               BackgroundColor="White"
+               Grid.RowSpan="2"
+               HasShadow="True">
+            <Image Source="perfil" />
+        </Frame>
+    </Grid>
+    <StackLayout Grid.Row="1"
+                 BindingContext="{x:Reference this}"
+                 Padding="20, 10"
+                 Spacing="20">
+        <Grid Style="{StaticResource menuGrid}">
+            <Image Style="{StaticResource menuImage}">
+                <Image.Source>
+                    <FontImageSource Glyph="{x:Static icons:MaterialDesignIcons.Home}"
+                                     Color="{StaticResource textColor}"
+                                     FontFamily="Icons" />
+                </Image.Source>
+            </Image>
+            <Label Text="Inicio"
+                   Style="{StaticResource menuLabel}" />
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding InicioCommand}" />
+            </Grid.GestureRecognizers>
+        </Grid>
+        <Grid Style="{StaticResource menuGrid}">
+        <Image Style="{StaticResource menuImage}">
+            <Image.Source>
+                <FontImageSource Glyph="{x:Static icons:MaterialDesignIcons.Logout}"
+                                     Color="{StaticResource textColor}"
+                                     FontFamily="Icons" />
+            </Image.Source>
+        </Image>
+        <Label Text="Cerrar sesión"
+                   Style="{StaticResource menuLabel}" />
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding CerrarCommand}" />
+        </Grid.GestureRecognizers>
+</Grid>
+</StackLayout>
+</Grid>

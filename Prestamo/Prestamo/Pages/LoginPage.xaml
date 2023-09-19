@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Prestamo.Components"
+             xmlns:icons="clr-namespace:Prestamo.Fonts" xmlns:vm="clr-namespace:Prestamo.VM" x:DataType="vm:LoginVM"
+             x:Class="Prestamo.Pages.LoginPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid BackgroundColor="White">
+                <!--<Image Source="loginBackground"
+                       Aspect="AspectFill"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="FillAndExpand" />-->
+                <Frame VerticalOptions="Center"
+                       CornerRadius="50"
+                       Margin="20, 0"
+                       Padding="20, 40"
+                       BorderColor="Black"
+                       HorizontalOptions="FillAndExpand">
+                    <Frame.Background>
+                        <!-- StartPoint defaults to (0,0) -->
+                        <LinearGradientBrush EndPoint="0,1"
+                                             StartPoint="0, 0">
+                            <GradientStop Color="white"
+                                          Offset="0.0" />
+                            <GradientStop Color="White"
+                                          Offset="0.29" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <StackLayout>
+                        <Image Source="sig"
+                               Margin="0, 15, 0, 20"
+                               HeightRequest="70" />
+                        <Frame HorizontalOptions="Center"
+                               BackgroundColor="Transparent"
+                               Padding="50"
+                               CornerRadius="100"
+                               BorderColor="Black">
+                            <Label Text="{x:Static icons:FontAwesomeIcons.CircleUser}"
+                                   FontSize="80"
+                                   TextColor="Black"
+                                   FontFamily="FASolid" />
+                        </Frame>
+                        <Frame Style="{StaticResource entryFrame}"
+                               Margin="20, 25, 20, 10">
+                            <views:BorderlessEntry Placeholder="Usuario"
+                                                   PlaceholderColor="Black"
+                                                   TextColor="Black"
+                                                   Text="usuario ejemplo" />
+                            <!--Text="{Binding Usuario}" />-->
+                        </Frame>
+                        <Frame Style="{StaticResource entryFrame}"
+                               Margin="20, 0">
+                            <views:BorderlessEntry Placeholder="Contraseña"
+                                                   PlaceholderColor="Black"
+                                                   IsPassword="True"
+                                                   TextColor="Black"
+                                                   Text="contraseña ejemplo" />
+                            <!--Text="{Binding Password}" />-->
+
+                        </Frame>
+                        <Button Style="{StaticResource primaryBtn}"
+                                Margin="60, 20, 60, 10"
+                                Text="Login"
+                                Command="{Binding LoginCommand}"
+                                />
+                        <!--Command="{Binding LoginCommand}" />-->
+                        <Label Text="¿Haz olvidado tu contraseña?"
+                               HorizontalOptions="Center"
+                               FontSize="Small"
+                               FontFamily="Main"
+                               Margin="0, 0, 0, 15"
+                               HorizontalTextAlignment="Center" />
+
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
