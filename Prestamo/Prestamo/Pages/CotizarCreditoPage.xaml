@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Prestamo.Pages.CotizarCreditoPage"
+             xmlns:views="clr-namespace:Prestamo.Components"
+             xmlns:icons="clr-namespace:Prestamo.Fonts"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+ xmlns:vm="clr-namespace:Prestamo.VM"
+x:DataType="vm:CotizarCreditoVM"       >
+    <ContentPage.Content>
+        <xct:TabView Grid.Row="1"
+                         SelectedIndex="{Binding SelectedTab}"
+                         IsTabStripVisible="False">
+            <xct:TabViewItem>
+                <ScrollView>
+                    <StackLayout Padding="20, 50, 20, 20" BackgroundColor="White">
+                        <Image Source="prestabajio"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HeightRequest="60" />
+
+
+                        <Label Text="Solicitar crédito" TextColor="Black" FontSize="Large"
+                                              FontFamily="MainBold" Margin="0,15,0,0" />
+
+                        <Label Text="Monto del crédito" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold" />
+
+
+                        <Frame Padding="10, 5"
+                                   BackgroundColor="Transparent"
+                                   CornerRadius="25"
+                                   Margin="0, 10, 0, 0"
+                                   BorderColor="Black">
+                            <Editor Placeholder="Monto:"
+                                        HeightRequest="40"
+                                        PlaceholderColor="Black"
+                                        Keyboard="Numeric"
+                                        FontFamily="Main"
+                            Text="{Binding MontoCredito}" >
+                                <Editor.Effects>
+                                    <xct:RemoveBorderEffect />
+                                </Editor.Effects>
+                            </Editor>
+                        </Frame>
+
+
+
+                        <Label Text="Interés del crédito %" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold" />
+                        <Frame Padding="10, 5"
+                                   BackgroundColor="Transparent"
+                                   CornerRadius="25"
+                                   Margin="0, 10, 0, 0"
+                                   BorderColor="Black">
+                            <Editor Placeholder="Interés:"
+                                        HeightRequest="40"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="Black"
+                                        FontFamily="Main"
+                            Text="{Binding InteresAnual}" 
+                          >
+                                <!--Text="{Binding SelectedDias}"-->
+                                <Editor.Effects>
+                                    <xct:RemoveBorderEffect />
+                                </Editor.Effects>
+                            </Editor>
+                        </Frame>
+
+                        <Label Text="Número de semanas" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold" />
+                        <Frame Padding="10, 5"
+                                   BackgroundColor="Transparent"
+                                   CornerRadius="25"
+                                   Margin="0, 10, 0, 0"
+                                   BorderColor="Black">
+                            <Editor Placeholder="Ingrese el número de semanas:"
+                                        HeightRequest="40"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="Black"
+                                        FontFamily="Main"
+                            Text="{Binding NumeroSemanas}" 
+                          >
+                                <!--Text="{Binding SelectedDias}"-->
+                                <Editor.Effects>
+                                    <xct:RemoveBorderEffect />
+                                </Editor.Effects>
+                            </Editor>
+                        </Frame>
+                        <Label Text="Selecciona la fecha de inicio" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold"/>
+                        <DatePicker x:Name="startDatePicker" BackgroundColor="#f7fafa" TextColor="Black"/>
+
+                        <!--<DatePicker Date="{Binding SelectedFechaInicio}" x:Name="startDatePicker" BackgroundColor="Black" />-->
+
+
+                        <Button Text="Cotizar"
+                            Style="{StaticResource primaryBtn}"
+               TextColor="White"
+               Command="{Binding CalcularCotizacionCommand}" 
+                            Margin="60, 20, 60, 10"/>
+
+                        <Label Text="Monto Total:" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="MainBold" />
+                        <Label Text="{Binding MontoTotal, StringFormat='${0:N2}'}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="Main" />
+
+                        <Label Text="Monto Semanal:" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="MainBold" />
+                        <Label Text="{Binding MontoSemanal, StringFormat='${0:N2}'}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="Main" />
+
+
+
+                        <!--<Frame BackgroundColor="Black"
+                               Margin="60, 10"
+                               VerticalOptions="End"
+                               Grid.Row="1"
+                               CornerRadius="50"
+                               Padding="10">
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnviarSolicitudCommand}" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                    <Label Text="Cotizar"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="White" />
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToTabCommand}"
+                                                      CommandParameter="1" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                </Frame>
+
+
+                <Frame BackgroundColor="Black"
+                               Margin="60, 10"
+                               VerticalOptions="End"
+                               Grid.Row="1"
+                               CornerRadius="50"
+                               Padding="10">
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnviarSolicitudCommand}" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                    <Label Text="Siguiente"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="White" />
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToTabCommand}"
+                                                      CommandParameter="1" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                </Frame>-->
+
+
+                    </StackLayout>
+                </ScrollView>
+
+            </xct:TabViewItem>
+            <xct:TabViewItem>
+                <ScrollView>
+                    <StackLayout Padding="20, 50, 20, 20" BackgroundColor="Black">
+                        <Image Source="prestabajio"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HeightRequest="60" />
+
+
+                        <Label Text="Solicitar crédito" TextColor="Black" FontSize="Large"
+                                              FontFamily="MainBold" Margin="0,15,0,0" />
+
+                        <Label Text="Monto del crédito" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold" />
+
+
+                        <Frame Padding="10, 5"
+                                   BackgroundColor="Transparent"
+                                   CornerRadius="25"
+                                   Margin="0, 10, 0, 0"
+                                   BorderColor="Black">
+                            <Editor Placeholder="Monto:"
+                                        HeightRequest="40"
+                                        PlaceholderColor="Black"
+                                        Keyboard="Numeric"
+                                        FontFamily="Main"
+                            Text="{Binding MontoCredito}" >
+                                <Editor.Effects>
+                                    <xct:RemoveBorderEffect />
+                                </Editor.Effects>
+                            </Editor>
+                        </Frame>
+
+
+
+                        <Label Text="Interés del crédito %" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold" />
+                        <Frame Padding="10, 5"
+                                   BackgroundColor="Transparent"
+                                   CornerRadius="25"
+                                   Margin="0, 10, 0, 0"
+                                   BorderColor="Black">
+                            <Editor Placeholder="Interés:"
+                                        HeightRequest="40"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="Black"
+                                        FontFamily="Main"
+                            Text="{Binding InteresAnual}" 
+                          >
+                                <!--Text="{Binding SelectedDias}"-->
+                                <Editor.Effects>
+                                    <xct:RemoveBorderEffect />
+                                </Editor.Effects>
+                            </Editor>
+                        </Frame>
+
+                        <Label Text="Número de semanas" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold" />
+                        <Frame Padding="10, 5"
+                                   BackgroundColor="Transparent"
+                                   CornerRadius="25"
+                                   Margin="0, 10, 0, 0"
+                                   BorderColor="Black">
+                            <Editor Placeholder="Ingrese el número de semanas:"
+                                        HeightRequest="40"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="Black"
+                                        FontFamily="Main"
+                            Text="{Binding NumeroSemanas}" 
+                          >
+                                <!--Text="{Binding SelectedDias}"-->
+                                <Editor.Effects>
+                                    <xct:RemoveBorderEffect />
+                                </Editor.Effects>
+                            </Editor>
+                        </Frame>
+                        <Label Text="Selecciona la fecha de inicio" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+                                              FontFamily="MainBold"/>
+                        <!--<DatePicker x:Name="startDatePicker" BackgroundColor="#f7fafa" TextColor="Black"/>-->
+
+                        <!--<DatePicker Date="{Binding SelectedFechaInicio}" x:Name="startDatePicker" BackgroundColor="Black" />-->
+
+
+                        <Button Text="Cotizar"
+                            Style="{StaticResource primaryBtn}"
+               TextColor="White"
+               Command="{Binding CalcularCotizacionCommand}" 
+                            Margin="60, 20, 60, 10"/>
+
+                        <Label Text="Monto Total:" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="MainBold" />
+                        <Label Text="{Binding MontoTotal, StringFormat='${0:N2}'}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="Main" />
+
+                        <Label Text="Monto Semanal:" TextColor="{StaticResource textColor}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="MainBold" />
+                        <Label Text="{Binding MontoSemanal, StringFormat='${0:N2}'}" VerticalOptions="Center" FontSize="Medium"
+           FontFamily="Main" />
+
+
+
+                        <!--<Frame BackgroundColor="Black"
+                               Margin="60, 10"
+                               VerticalOptions="End"
+                               Grid.Row="1"
+                               CornerRadius="50"
+                               Padding="10">
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnviarSolicitudCommand}" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                    <Label Text="Cotizar"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="White" />
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToTabCommand}"
+                                                      CommandParameter="1" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                </Frame>
+
+
+                <Frame BackgroundColor="Black"
+                               Margin="60, 10"
+                               VerticalOptions="End"
+                               Grid.Row="1"
+                               CornerRadius="50"
+                               Padding="10">
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding EnviarSolicitudCommand}" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                    <Label Text="Siguiente"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextColor="White" />
+                    -->
+                        <!--<Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToTabCommand}"
+                                                      CommandParameter="1" />
+                    </Frame.GestureRecognizers>-->
+                        <!--
+                </Frame>-->
+
+
+                    </StackLayout>
+                </ScrollView>
+
+            </xct:TabViewItem>
+        </xct:TabView>
+        
+    </ContentPage.Content>
+</ContentPage>

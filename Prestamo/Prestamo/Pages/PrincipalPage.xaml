@@ -32,7 +32,7 @@
                     <StackLayout>
 
                         <Grid>
-                            <Image Source="sig"
+                            <Image Source="prestabajio"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
                                    HeightRequest="60" />
@@ -103,10 +103,16 @@
 
                                             <!-- Título de usuario y BoxView -->
                                             <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="10">
-                                                <Frame  WidthRequest="-9" HeightRequest="-9" CornerRadius="50" 
+                                                <!--<Frame  WidthRequest="-9" HeightRequest="-9" CornerRadius="50" 
                                                           BackgroundColor="{Binding ., Converter={StaticResource randomBackgroundColorConverter}}" 
-                                                         HasShadow="True"/>
-                                                
+                                                         HasShadow="True"/>-->
+                                                <Frame WidthRequest="-9" HeightRequest="-9" CornerRadius="50" HasShadow="True">
+                                                    <Frame.BackgroundColor>
+                                                        <Binding Path="Estatus" Converter="{StaticResource estatusColorConverter}" />
+                                                    </Frame.BackgroundColor>
+                                                </Frame>
+
+
                                                 <Label Text="Nombre de Usuario" FontSize="Subtitle" TextColor="Gray" VerticalOptions="Center" />
                                             </StackLayout>
 
@@ -142,11 +148,11 @@
                                                 <!-- Valor 3: Binding Fecha (en la segunda fila) -->
                                                 <Label Grid.Column="4" Grid.Row="1" Text="{Binding Fecha}" FontSize="Caption" TextColor="#004f94" FontAttributes="Bold" />
 
-                                                <BoxView Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2" HeightRequest="10" CornerRadius="10" WidthRequest="10">
+                                                <!--<BoxView Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="2" HeightRequest="10" CornerRadius="10" WidthRequest="10">
                                                     <BoxView.BackgroundColor>
                                                         <Binding Path="Estatus" Converter="{StaticResource estatusColorConverter}" />
                                                     </BoxView.BackgroundColor>
-                                                </BoxView>
+                                                </BoxView>-->
                                             </Grid>
                                         </Grid>
                                     </Frame>
@@ -258,7 +264,7 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>-->
                     </RefreshView>
-
+                    
                     
                 </Grid>
             </ScrollView>

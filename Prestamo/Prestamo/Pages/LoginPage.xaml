@@ -15,7 +15,7 @@
                        CornerRadius="50"
                        Margin="20, 0"
                        Padding="20, 40"
-                       BorderColor="Black"
+                       BorderColor="#64449c"
                        HorizontalOptions="FillAndExpand">
                     <Frame.Background>
                         <!-- StartPoint defaults to (0,0) -->
@@ -28,19 +28,28 @@
                         </LinearGradientBrush>
                     </Frame.Background>
                     <StackLayout>
-                        <Image Source="sig"
+                        <Image Source="prestabajio"
                                Margin="0, 15, 0, 20"
                                HeightRequest="70" />
-                        <Frame HorizontalOptions="Center"
+                        <Label Text="LOGIN"
+                               HorizontalOptions="Center"
+                               FontSize="Large"
+                               FontFamily="MainBold"
+                               Margin="0, 0, 0, 10"
+                               TextColor="Black"
+                               HorizontalTextAlignment="Center" />
+                        <!--<Frame HorizontalOptions="Center"
                                BackgroundColor="Transparent"
                                Padding="50"
                                CornerRadius="100"
                                BorderColor="Black">
+                            --><!--4d2b43--><!--
                             <Label Text="{x:Static icons:FontAwesomeIcons.CircleUser}"
                                    FontSize="80"
-                                   TextColor="Black"
+                                   TextColor="#000000"
                                    FontFamily="FASolid" />
-                        </Frame>
+                            --><!--8474b0--><!--
+                        </Frame>-->
                         <Frame Style="{StaticResource entryFrame}"
                                Margin="20, 25, 20, 10">
                             <views:BorderlessEntry Placeholder="Usuario"

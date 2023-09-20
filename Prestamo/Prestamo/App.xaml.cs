@@ -11,7 +11,7 @@ namespace Prestamo
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new CotizarCreditoPage();
         }
 
         protected override void OnStart()

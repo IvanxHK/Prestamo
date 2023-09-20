@@ -84,7 +84,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\prestabajio.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Prestamo\Prestamo.csproj">
       <Project>{D9B61F7D-CCB2-4583-92E5-0BFD49E04921}</Project>
