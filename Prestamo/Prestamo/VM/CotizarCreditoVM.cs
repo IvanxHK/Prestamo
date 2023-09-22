@@ -1,6 +1,12 @@
-﻿using System;
+﻿using Prestamo.Models;
+using Prestamo.Models.Server;
+using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Prestamo.VM
@@ -12,6 +18,48 @@ namespace Prestamo.VM
         private int numeroSemanas;
         private double montoTotal;
         private double montoSemanal;
+        private double multa;
+        private int selectedTab;
+        private ObservableCollection<PagoItem> pagos;
+        public ObservableCollection<PagoItem> Pagos
+        {
+            get { return pagos; }
+            set
+            {
+                if (pagos != value)
+                {
+                    pagos = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int SelectedTab
+        {
+            get { return selectedTab; }
+            set
+            {
+                if (selectedTab != value)
+                {
+                    selectedTab = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime selectedStartDate;
+        public DateTime SelectedStartDate
+        {
+            get { return selectedStartDate; }
+            set
+            {
+                if (selectedStartDate != value)
+                {
+                    selectedStartDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public double MontoCredito
         {
@@ -78,39 +126,96 @@ namespace Prestamo.VM
             }
         }
 
+        public double Multa
+        {
+            get { return multa; }
+            set
+            {
+                if (multa != value)
+                {
+                    multa = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Command CalcularCotizacionCommand { get; set; }
 
         public CotizarCreditoVM()
         {
             CalcularCotizacionCommand = new Command(CalcularCotizacion);
+            SelectedStartDate = DateTime.Now;
+            SelectedTab = 0; 
+
         }
 
-        private void CalcularCotizacion()
+        private async void CalcularCotizacion()
         {
-            //// Calcular el monto total con el interés anual
-            //double interesMensual = InteresAnual / 12 / 100;
-            //double montoTotalConInteres = MontoCredito * (1 + interesMensual);
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await DisplayAlert("Sin conexión", "No tienes conexión a internet. Inténtalo más tarde", "Ok");
+                return;
+            }
 
-            //// Calcular el monto semanal
-            //MontoTotal = montoTotalConInteres;
-            //MontoSemanal = montoTotalConInteres / NumeroSemanas;
+            // Calcula el monto total con interés
+            double interesMensual = MontoCredito / 10;
+            double montoTotalConInteres = MontoCredito + interesMensual;
 
-            double montoTotalConInteres = MontoCredito * (1 + (InteresAnual / 100));
-
-            // Calcular el monto semanal
+            // Calcula el monto semanal
             MontoTotal = montoTotalConInteres;
             MontoSemanal = montoTotalConInteres / NumeroSemanas;
+
+            // Asigna el valor estático de la multa
+            double multa = 300; // Aquí asignamos el valor estático de 300
+            Multa = multa;
+
+            try
+            {
+                // Llama al servicio para obtener la respuesta
+                SetCreditoResponse creditoResponse = await ApiServices.SetCredito(
+                    (int)MontoCredito,
+                    (int)InteresAnual,
+                    (int)MontoSemanal,
+                    (int)multa, // Utiliza la variable Multa que acabamos de asignar
+                    SelectedStartDate.ToString("yyyy-MM-dd"), // Convierte la fecha al formato correcto
+                    (int)NumeroSemanas
+                );
+
+                if (creditoResponse.Codigo == 200)
+                {
+                    var pagos = creditoResponse.ObjList.Pagos;
+                    foreach (var pago in pagos)
+                    {
+                        Console.WriteLine($"Orden: {pago.Orden}");
+                        Console.WriteLine($"Orden Texto: {pago.OrdenTexto}");
+                        Console.WriteLine($"Fecha: {pago.Fecha}");
+                        Console.WriteLine($"Monto: {pago.Monto}");
+                        Console.WriteLine($"estatus: {pago.Estatus}");
+
+                    }
+                    SelectedTab = 1;
+                    Pagos = new ObservableCollection<PagoItem>(
+                    creditoResponse.ObjList.Pagos.Select(p => new PagoItem
+                    {
+                        OrdenTexto = p.OrdenTexto,
+                        Fecha = p.Fecha,
+                        Monto = p.Monto,
+                        Estatus = (int)p.Estatus
+                    }).ToList()
+                   );
+
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Ocurrió un error al cotizar. Inténtalo más tarde", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await DisplayAlert("Error", ex.Message, "Ok");
+                return;
+            }
         }
-
-        //private void CalcularCotizacion()
-        //{
-        //    // Calcular el monto total con el interés anual
-        //    double interesMensual = MontoCredito * 10;
-        //    double montoTotalConInteres = MontoCredito + interesMensual;
-
-        //    // Calcular el monto semanal
-        //    MontoTotal = montoTotalConInteres;
-        //    MontoSemanal = montoTotalConInteres / NumeroSemanas;
-        //}
     }
 }

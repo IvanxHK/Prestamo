@@ -1,4 +1,6 @@
 ﻿using Acr.UserDialogs;
+using Prestamo.Models;
+using Prestamo.Models.Server;
 using Prestamo.Pages;
 using System;
 using System.Collections.Generic;
@@ -49,46 +51,48 @@ namespace Prestamo.VM
 
         public async Task Login()
         {
-            Application.Current.MainPage = new NavigationPage(new PrincipalPage());
+            //Application.Current.MainPage = new NavigationPage(new PrincipalPage());
 
-            //if (Connectivity.NetworkAccess != NetworkAccess.Internet)
-            //{
-            //    await DisplayAlert("Error de conexión", "No tienes conexión a internet. Intentalo más tarde", "OK");
-            //    return;
-            //}
-            //try
-            //{
-            //    var response = await ApiServices.Login(Usuario, Password);
-            //    if ((response?.Codigo ?? 0) != 200)
-            //    {
-            //        await DisplayAlert("Error", response?.Descripcion, "OK");
-            //        return;
-            //    }
-            //    if (response.ObjList.Existe == 1)
-            //    {
-            //        Usuario usuario = new Usuario
-            //        {
-            //            Correo = Usuario,
-            //            Pwd = Password,
-            //            Nivel = response.ObjList.Nivel,
-            //            PkTienda = response.ObjList.IdTienda
-            //        };
-            //        AppSettings.GuardarUsuario(usuario);
-            //        Application.Current.Properties["IsLoggedIn2"] = Boolean.TrueString;
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await DisplayAlert("Error de conexión", "No tienes conexión a internet. Intentalo más tarde", "OK");
+                return;
+            }
+            try
+            {
+                var response = await ApiServices.Login(Usuario, Password);
+                if ((response?.Codigo ?? 0) != 200)
+                {
+                    await DisplayAlert("Error", response?.Descripcion, "OK");
+                    return;
+                }
+                if (response.ObjList.Existe == 1)
+                {
+                    Usuario usuario = new Usuario
+                    {
+                        Correo = Usuario,
+                        Pwd = Password,
+                        //Nivel = response.ObjList.Nivel,
+                        //PkTienda = response.ObjList.IdTienda
+                    };
+                    AppSettings.GuardarUsuario(usuario);
+                    Application.Current.Properties["IsLoggedIn2"] = Boolean.TrueString;
 
-            //        Application.Current.MainPage = new NavigationPage(new PrincipalPage());
-            //    }
-            //    else
-            //    {
-            //        await DisplayAlert("Error", "El usuario o contraseña son incorrectos. Intentalo de nuevo", "OK");
-            //    }
+                    Application.Current.MainPage = new NavigationPage(new CotizarCreditoPage());
+                }
+                else
+                {
+                    await DisplayAlert("Error", "El usuario o contraseña son incorrectos. Intentalo de nuevo", "OK");
+                }
 
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.WriteLine(e.Message);
-            //    await DisplayAlert("Error", "Ocurrió un error al iniciar sesión. Intentalo más tarde", "OK");
-            //}
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                await DisplayAlert("Error", "Ocurrió un error al iniciar sesión. Intentalo más tarde", "OK");
+            }
+
+
         }
     }
 }

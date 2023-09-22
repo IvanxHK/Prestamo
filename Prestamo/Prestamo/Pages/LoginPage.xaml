@@ -55,7 +55,7 @@
                             <views:BorderlessEntry Placeholder="Usuario"
                                                    PlaceholderColor="Black"
                                                    TextColor="Black"
-                                                   Text="usuario ejemplo" />
+                                                   Text="{Binding Usuario}" />
                             <!--Text="{Binding Usuario}" />-->
                         </Frame>
                         <Frame Style="{StaticResource entryFrame}"
@@ -64,7 +64,7 @@
                                                    PlaceholderColor="Black"
                                                    IsPassword="True"
                                                    TextColor="Black"
-                                                   Text="contraseña ejemplo" />
+                                                   Text="{Binding Password}" />
                             <!--Text="{Binding Password}" />-->
 
                         </Frame>
