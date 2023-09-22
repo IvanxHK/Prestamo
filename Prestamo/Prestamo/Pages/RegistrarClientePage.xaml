@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:MenuPage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="Prestamo.Pages.RegistrarClientePage"
+                xmlns:icons="clr-namespace:Prestamo.Fonts"
+                xmlns:views="clr-namespace:Prestamo.Components"
+                xmlns:vm="clr-namespace:Prestamo.VM"
+                xmlns:pages="clr-namespace:Prestamo.Pages"
+                xmlns:convertes="clr-namespace:Prestamo.Converters"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit" x:DataType="vm:RegistrarClienteVM">
+    <ContentPage.Content>
+        <xct:SideMenuView x:Name="menuView">
+            <ScrollView>
+                <Grid Padding="20, 50, 20, 20"
+                      BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <RowDefinition Height="AUTO" />
+                        <!-- Agrega más filas según sea necesario -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Encabezado -->
+                    <StackLayout Grid.Row="0" HorizontalOptions="Center">
+                        <Image Source="prestabajio"
+                               HeightRequest="60" />
+
+                        <ImageButton VerticalOptions="Center"
+                                     HorizontalOptions="End"
+                                     HeightRequest="20"
+                                     x:Name="menuBtn"
+                                     Source="menu" />
+                        <!--Clicked="menuBtn_Clicked"-->
+                    </StackLayout>
+
+                    <!-- Título -->
+                    <Label Grid.Row="1"
+                           Text="Registrar cliente"
+                           HorizontalTextAlignment="Center"
+                           FontSize="Large" 
+                           TextColor="#013e75"/>
+
+                    <!-- Selector de Género -->
+                    <StackLayout Grid.Row="2">
+                        <Label Text="Género" />
+                        <Picker x:Name="GeneroPicker" Title="SELECCIONAR">
+                            <Picker.Items>
+                                <x:String>Hombre</x:String>
+                                <x:String>Mujer</x:String>
+                            </Picker.Items>
+                            <Picker.Effects>
+                                <xct:RemoveBorderEffect />
+                            </Picker.Effects>
+                        </Picker>
+                    </StackLayout>
+
+                    <!-- Campos de Entrada -->
+                    <StackLayout Grid.Row="3">
+                        <Label Text="Nombre" />
+                        <Entry x:Name="NombreEntry" Placeholder="Ingrese su nombre" />
+
+                        <Label Text="Apellido Paterno" />
+                        <Entry x:Name="ApellidoPaternoEntry" Placeholder="Ingrese su apellido paterno" />
+
+                        <Label Text="Apellido Materno" />
+                        <Entry x:Name="ApellidoMaternoEntry" Placeholder="Ingrese su apellido materno" />
+
+                        <Label Text="Dirección" />
+                        <Entry x:Name="DireccionEntry" Placeholder="Ingrese su dirección" />
+
+                        <Label Text="Latitud" />
+                        <Entry x:Name="LatitudEntry" Placeholder="Ingrese la latitud" Keyboard="Numeric" />
+
+                        <Label Text="Longitud" />
+                        <Entry x:Name="LongitudEntry" Placeholder="Ingrese la longitud" Keyboard="Numeric" />
+
+                        <Label Text="Teléfono" />
+                        <Entry x:Name="TelefonoEntry" Placeholder="Ingrese su número de teléfono" Keyboard="Telephone" />
+
+                        <Label Text="Correo" />
+                        <Entry x:Name="CorreoEntry" Placeholder="Ingrese su correo electrónico" Keyboard="Email" />
+
+                        <Button Text="Registrar" />
+                        <!--<Button Text="Registrar" Clicked="OnRegistrarClicked" />-->
+                    </StackLayout>
+
+                </Grid>
+            </ScrollView>
+
+
+        </xct:SideMenuView>
+    </ContentPage.Content>
+</pages:MenuPage>

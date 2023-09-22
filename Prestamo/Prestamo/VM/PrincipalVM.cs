@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Prestamo.Pages;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -10,6 +12,18 @@ namespace Prestamo.VM
 {
     public class PrincipalVM : BaseVM
     {
+        public ICommand RegistrarCommand { get; private set; }
+
+        // En el constructor del ViewModel:
+        public PrincipalVM()
+        {
+            RegistrarCommand = new Command(NavegarARegistrarCliente);
+        }
+
+        private async void NavegarARegistrarCliente()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new RegistrarClientePage());
+        }
 
         //private int selectedTipoIndex;
         //private List<ListadoIncidenciasObjList> incidencias;
