@@ -13,17 +13,15 @@ namespace Prestamo
             InitializeComponent();
             GoogleMapsApiService.Initialize(Constants.GoogleMapsApiKey);
 
-
-            MainPage = new ExamplePage();
-            //bool isLoggedIn2 = Current.Properties.ContainsKey("IsLoggedIn2") ? Convert.ToBoolean(Current.Properties["IsLoggedIn2"]) : false;
-            //if (isLoggedIn2)
-            //{
-            //    MainPage = new NavigationPage(new CotizarCreditoPage());
-            //}
-            //else
-            //{
-            //    MainPage = new LoginPage();
-            //}
+            bool isLoggedIn2 = Current.Properties.ContainsKey("IsLoggedIn2") ? Convert.ToBoolean(Current.Properties["IsLoggedIn2"]) : false;
+            if (isLoggedIn2)
+            {
+                MainPage = new NavigationPage(new PrincipalPage());
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
         }
 
         protected override void OnStart()

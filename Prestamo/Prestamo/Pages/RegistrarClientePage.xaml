@@ -51,7 +51,7 @@
                     <!-- Selector de Género -->
                     <StackLayout Grid.Row="2">
                         <Label Text="Género" />
-                        <Picker x:Name="GeneroPicker" Title="SELECCIONAR">
+                        <Picker x:Name="GeneroPicker" Title="SELECCIONAR" SelectedIndex="{Binding GeneroSeleccionado}">
                             <Picker.Items>
                                 <x:String>Hombre</x:String>
                                 <x:String>Mujer</x:String>
@@ -61,6 +61,7 @@
                             </Picker.Effects>
                         </Picker>
                     </StackLayout>
+
 
                     <!-- Campos de Entrada -->
                     <StackLayout Grid.Row="3">
@@ -88,7 +89,7 @@
                         <Label Text="Correo" />
                         <Entry x:Name="CorreoEntry" Placeholder="Ingrese su correo electrónico" Keyboard="Email" />
 
-                        <Button Text="Registrar" />
+                        <Button Text="Registrar" x:Name="RegistrarButton" Command="{Binding RegistrarClienteCommand}" />
                         <!--<Button Text="Registrar" Clicked="OnRegistrarClicked" />-->
                     </StackLayout>
 
