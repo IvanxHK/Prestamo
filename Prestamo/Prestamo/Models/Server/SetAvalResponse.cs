@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Prestamo.Models
+namespace Prestamo.Models.Server
 {
-    public partial class SetClienteResponse
+    public partial class SetAvalResponse
     {
         [JsonProperty("codigo")]
         public long Codigo { get; set; }
@@ -14,11 +14,11 @@ namespace Prestamo.Models
         public string Descripcion { get; set; }
 
         [JsonProperty("objList")]
-        public SetClienteObjList ObjList { get; set; }
+        public SetAvalObjList ObjList { get; set; }
     }
-    public partial class SetClienteObjList
+    public partial class SetAvalObjList
     {
-        [JsonProperty("pk_cliente")]
-        public long PkCliente { get; set; }
+        [JsonProperty("pk_aval")]
+        public long PkAval { get; set; }
     }
 }

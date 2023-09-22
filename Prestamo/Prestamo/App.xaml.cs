@@ -14,7 +14,7 @@ namespace Prestamo
             bool isLoggedIn2 = Current.Properties.ContainsKey("IsLoggedIn2") ? Convert.ToBoolean(Current.Properties["IsLoggedIn2"]) : false;
             if (isLoggedIn2)
             {
-                MainPage = new NavigationPage(new CotizarCreditoPage());
+                MainPage = new NavigationPage(new PrincipalPage());
             }
             else
             {
