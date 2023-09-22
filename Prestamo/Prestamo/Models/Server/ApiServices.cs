@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -134,6 +136,70 @@ namespace Prestamo.Models.Server
                 {
                     throw new Exception($"Error en la solicitud HTTP: {response.StatusCode}");
                 }
+            }
+        }
+
+
+        public static async Task<T> PostRequest<T>(string url, MultipartFormDataContent form) where T : new()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                Debug.WriteLine(url);
+
+                var response = await httpClient.PostAsync(url, form);
+                response.EnsureSuccessStatusCode();
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(responseContent);
+            }
+        }
+
+
+        public static async Task<OperacionResponse> SetArchivoRegistroi(
+    string pkCliente,
+    int tipo,
+    Stream image
+)
+        {
+            using (var formData = new MultipartFormDataContent())
+            {
+                var usuario = AppSettings.ObtenerUsuario();
+                string url = $"{AppSettings.ApiUrl}setArchivoRegistroi.php";
+
+                formData.Add(new StringContent(usuario.Correo), "usuario");
+                formData.Add(new StringContent(usuario.Pwd), "pass");
+                formData.Add(new StringContent(pkCliente), "pk_cliente");
+                formData.Add(new StringContent(tipo.ToString()), "tipo");
+
+                // Aquí establecemos el nombre del campo según el tipo
+                string fieldName = "";
+                switch (tipo)
+                {
+                    case 1:
+                        fieldName = "foto_cliente";
+                        break;
+                    case 2:
+                        fieldName = "ine_frente";
+                        break;
+                    case 3:
+                        fieldName = "ine_reverso";
+                        break;
+                    case 4:
+                        fieldName = "comprobante_domicilio";
+                        break;
+                    default:
+                        fieldName = "fileToUpload";
+                        break;
+                }
+
+                StreamContent imageContent = new StreamContent(image);
+                imageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                {
+                    Name = fieldName, // Usamos el nombre correspondiente al tipo
+                    FileName = "fileToUpload"
+                };
+                formData.Add(imageContent);
+
+                return await PostRequest<OperacionResponse>(url, formData);
             }
         }
 
