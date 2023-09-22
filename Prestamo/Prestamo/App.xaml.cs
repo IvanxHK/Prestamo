@@ -1,4 +1,5 @@
 ﻿using Prestamo.Pages;
+using Prestamo.Services;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,16 +11,19 @@ namespace Prestamo
         public App()
         {
             InitializeComponent();
+            GoogleMapsApiService.Initialize(Constants.GoogleMapsApiKey);
 
-            bool isLoggedIn2 = Current.Properties.ContainsKey("IsLoggedIn2") ? Convert.ToBoolean(Current.Properties["IsLoggedIn2"]) : false;
-            if (isLoggedIn2)
-            {
-                MainPage = new NavigationPage(new CotizarCreditoPage());
-            }
-            else
-            {
-                MainPage = new LoginPage();
-            }
+
+            MainPage = new ExamplePage();
+            //bool isLoggedIn2 = Current.Properties.ContainsKey("IsLoggedIn2") ? Convert.ToBoolean(Current.Properties["IsLoggedIn2"]) : false;
+            //if (isLoggedIn2)
+            //{
+            //    MainPage = new NavigationPage(new CotizarCreditoPage());
+            //}
+            //else
+            //{
+            //    MainPage = new LoginPage();
+            //}
         }
 
         protected override void OnStart()

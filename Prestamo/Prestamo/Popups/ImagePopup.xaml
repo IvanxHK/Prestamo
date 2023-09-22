@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:media="clr-namespace:Plugin.Media.Abstractions;assembly=Plugin.Media"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           Size="300, 500"
+           x:Name="This"
+           Color="{OnPlatform Android=transparent, iOS=white}"
+           x:TypeArguments="media:MediaFile"
+           x:Class="Popups.ImagePopup">
+    <Frame BackgroundColor="{OnPlatform Android=white, iOS=transparent}"
+           CornerRadius="20">
+        <Grid RowDefinitions="*, 0.3*"
+              BindingContext="{x:Reference This}">
+            <Image Source="{Binding ImageSource}" />
+            <StackLayout Grid.Row="1">
+                <Button Text="Subir imagen"
+                        x:Name="subirBtn"
+                        Style="{StaticResource primaryBtn}"
+                        Clicked="subirBtn_Clicked" />
+                <Button Text="Escoger otra imagen"
+                        x:Name="escogerOtraBtn"
+                        Style="{StaticResource primaryBtn}"
+                        Clicked="escogerOtraBtn_Clicked" />
+            </StackLayout>
+        </Grid>
+    </Frame>
+</xct:Popup>

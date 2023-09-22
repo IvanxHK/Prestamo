@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:dotMorten.Xamarin.Forms;assembly=dotMorten.Xamarin.Forms.AutoSuggestBox"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:Prestamo.VM"
+             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             x:DataType="vm:ExampleVM"
+             x:Class="Prestamo.Pages.ExamplePage">
+    <ContentPage.Content>
+        <StackLayout Padding="20, 40, 20, 20">
+            <Label Text="Dirección" />
+            <!--Ejemplo de autocompletado por google maps-->
+            <Grid>
+                <forms:AutoSuggestBox PlaceholderText="Geolocalización"
+                                      VerticalOptions="Center"
+                                      Margin="10, 0, 0, 0"
+                                      TextColor="Black"
+                                      SuggestionChosen="auto_SuggestionChosen"
+                                      TextChanged="auto_TextChanged"
+                                      ItemsSource="{Binding Places}"
+                                      x:Name="auto">
+                </forms:AutoSuggestBox>
+                <BoxView x:Name="autoBackground"
+                         IsVisible="false"
+                         BackgroundColor="Black"
+                         Opacity="0.1" />
+                <ImageButton HeightRequest="30"
+                             WidthRequest="30"
+                             Source="clear"
+                             Margin="0, 0, 10, 0"
+                             xct:TouchEffect.NativeAnimation="False"
+                             Clicked="clearAutoComplete"
+                             VerticalOptions="Center"
+                             BackgroundColor="Transparent"
+                             HorizontalOptions="End" />
+            </Grid>
+            <maps:Map x:Name="map"
+                      VerticalOptions="Start"
+                      HeightRequest="180" />
+
+            <Button Text="Escoger video" Clicked="Button_Clicked"/>
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

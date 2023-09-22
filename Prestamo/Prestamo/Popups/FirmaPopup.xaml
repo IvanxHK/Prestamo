@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           Color="Transparent"
+           x:Name="This"
+           IsLightDismissEnabled="False"
+           xmlns:controls="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms"
+           x:Class="Prestamo.Popups.FirmaPopup">
+
+    <Frame CornerRadius="30"
+           BindingContext="{x:Reference This}"
+           Padding="20">
+        <StackLayout>
+            <Label FontSize="Medium"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding Title}" />
+            <controls:SignaturePadView x:Name="signatureView"
+                                       StrokeWidth="2"
+                                       VerticalOptions="FillAndExpand"
+                                       ClearText="Limpiar"
+                                       CaptionText="{Binding CaptionText}"
+                                       PromptText="{Binding PromtText}"
+                                       StrokeColor="Black"
+                                       BackgroundColor="White" />
+            <Button Style="{StaticResource primaryBtn}"
+                    x:Name="FirmarBtn"
+                    IsEnabled="{Binding Source={x:Reference signatureView}, Path=IsBlank, Converter={StaticResource InvertedBoolConverter}}"
+                    Clicked="FirmarBtn_Clicked"
+                    Text="Enviar firma">
+                <Button.Triggers>
+                    <Trigger TargetType="Button"
+                             Property="IsEnabled"
+                             Value="False">
+                        <Setter Property="Style"
+                                Value="{StaticResource disabledBtn}" />
+                    </Trigger>
+                </Button.Triggers>
+            </Button>
+        </StackLayout>
+    </Frame>
+</xct:Popup>

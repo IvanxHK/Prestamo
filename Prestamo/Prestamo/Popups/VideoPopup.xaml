@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:media="clr-namespace:Plugin.Media.Abstractions;assembly=Plugin.Media"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           Opened="This_Opened"
+           Size="300, 500"
+           xmlns:mm="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms"
+           x:Name="This"
+           Color="{OnPlatform Android=transparent, iOS=white}"
+           x:TypeArguments="media:MediaFile"
+           x:Class="Prestamo.Popups.VideoPopup">
+
+    <Frame BackgroundColor="{OnPlatform Android=white, iOS=transparent}"
+           CornerRadius="20">
+        <Grid RowDefinitions="*, 0.3*"
+              BindingContext="{x:Reference This}">
+            <ContentView x:Name="videoContainer"
+                         HeightRequest="200"
+                         BackgroundColor="Red">
+                <mm:VideoView VerticalOptions="FillAndExpand"
+                              IsFullWindow="True"
+                              InputTransparent="True"
+                              AutoPlay="True"
+                              ShowControls="False" />
+            </ContentView>
+            <StackLayout Grid.Row="1">
+                <Button Text="Subir imagen"
+                        x:Name="subirBtn"
+                        Style="{StaticResource primaryBtn}"
+                        Clicked="subirBtn_Clicked" />
+                <Button Text="Escoger otra imagen"
+                        x:Name="escogerOtraBtn"
+                        Style="{StaticResource primaryBtn}"
+                        Clicked="escogerOtraBtn_Clicked" />
+            </StackLayout>
+        </Grid>
+    </Frame>
+
+</xct:Popup>

@@ -5,10 +5,12 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
+using Plugin.CurrentActivity;
+using MediaManager;
 
 namespace Prestamo.Droid
 {
-    [Activity(Label = "Prestamo", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
+    [Activity(Label = "Prestamo", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -19,6 +21,9 @@ namespace Prestamo.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             UserDialogs.Init(this);
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
+            CrossMediaManager.Current.Init(this);
 
             LoadApplication(new App());
         }

@@ -1,0 +1,109 @@
+﻿using System;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Prestamo.Models.Maps;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace Prestamo.Services
+{
+    public class GoogleMapsApiService : IGoogleMapsApiService
+    {
+        static string _googleMapsKey;
+
+        private const string ApiBaseAddress = "https://maps.googleapis.com/maps/";
+        private HttpClient CreateClient()
+        {
+
+            //App.Current.MainPage.DisplayAlert("Hola", _googleMapsKey, "ok");
+            var httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(ApiBaseAddress)
+            };
+
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            return httpClient;
+        }
+        public static void Initialize(string googleMapsKey)
+        {
+            _googleMapsKey = googleMapsKey;
+        }
+
+        public async Task<GoogleDirection> GetDirections(string originLatitude, string originLongitude, string destinationLatitude, string destinationLongitude)
+        {
+
+            //await App.Current.MainPage.DisplayAlert("Hola", _googleMapsKey, "ok");
+            GoogleDirection googleDirection = new GoogleDirection();
+
+            using (var httpClient = CreateClient())
+            {
+                var url = $"api/directions/json?mode=driving&transit_routing_preference=less_driving&origin={originLatitude},{originLongitude}&destination={destinationLatitude},{destinationLongitude}&key={_googleMapsKey}";
+                Debug.WriteLine(url);
+                var response = await httpClient.GetAsync(url).ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        googleDirection = await Task.Run(() =>
+                           JsonConvert.DeserializeObject<GoogleDirection>(json)
+                        ).ConfigureAwait(false);
+
+                    }
+                }
+            }
+
+            return googleDirection;
+        }
+
+        public async Task<GooglePlaceAutoCompleteResult> GetPlaces(string text)
+        {
+
+            //await App.Current.MainPage.DisplayAlert("Hola", _googleMapsKey, "ok");
+            GooglePlaceAutoCompleteResult results = null;
+
+            using (var httpClient = CreateClient())
+            {
+                var response = await httpClient.GetAsync($"api/place/autocomplete/json?input={Uri.EscapeUriString(text)}&key={_googleMapsKey}").ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (!string.IsNullOrWhiteSpace(json) && json != "ERROR")
+                    {
+                        results = await Task.Run(() =>
+                           JsonConvert.DeserializeObject<GooglePlaceAutoCompleteResult>(json)
+                        ).ConfigureAwait(false);
+
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public async Task<GooglePlace> GetPlaceDetails(string placeId)
+        {
+
+            //await App.Current.MainPage.DisplayAlert("Hola", _googleMapsKey, "ok");
+            GooglePlace result = null;
+            using (var httpClient = CreateClient())
+            {
+                var response = await httpClient.GetAsync($"api/place/details/json?placeid={Uri.EscapeUriString(placeId)}&key={_googleMapsKey}").ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    if (!string.IsNullOrWhiteSpace(json) && json != "ERROR")
+                    {
+                        result = new GooglePlace(JObject.Parse(json));
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
+}
